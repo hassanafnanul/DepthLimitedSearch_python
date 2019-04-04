@@ -1,0 +1,79 @@
+graph={'Oradea':['Zerind','Siblu'],
+    'Zerind':['Arad','Oradea'],
+    'Arad':['Siblu','Timisoara','Zerind'],
+    'Timisoara':['Lugoj','Arad'],
+   'Lugoj':['Mehedia','Timisoara'],
+   'Mehedia':['Lugoj','Dobreta'],
+   'Dobreta':['Mehedia','Cralova'],
+   'Cralova':['Dobreta','Pitesti','Rimnicu Vilcea'],
+    'Pitesti':['Bucharest','Rimnicu Vilcea','Cralova'],
+   'Bucharest':['Pitesti','Glurglu','Pagaras','Urziceni'],
+   'Pagaras':['Siblu','Bucharest'],
+   'Siblu':['Pagaras','Rimnicu Vilcea','Arad','Oradea'],
+   'Rimnicu Vilcea':['Pitesti','Siblu','Cralova'],
+   'Urziceni':['Bucharest','Vaslul','Hirsova'],
+    'Neamt':['Issl'],
+   'Issl':['Neamt','Vaslul'],
+   'Vaslul':['Issl','Urziceni'],
+   'Hirsova':['Urziceni','Etorie'],
+       'Glurglu':['Bucharest'],
+       'Etorie':['Hirsova']
+   }
+
+
+route=[]
+visited=[]
+
+
+def dls(start,destination):
+    
+    lmt = input("\nLimit:  ")
+    
+    route.append(start)
+    countnode=0
+    countlimit=0
+    nodeinlevel=0
+
+    while len(route)>0:
+         vertex=route.pop(len(route)-1)
+         if vertex not in visited:
+             visited.append(vertex)
+             route.extend(set(graph[vertex])-set(visited))
+             countnode+=1
+         if nodeinlevel==countnode:
+              nodeinlevel=len(route)
+              countnode=0
+              countlimit+=1
+         if countlimit==lmt:
+              print ('cut off')
+              break
+         if visited.__contains__(destination):
+           return visited
+        
+
+
+print("\n\nDepth Limited Search\n--------------------\n\n")
+suru = input("Starting Point:  ")
+if suru not in graph:
+    print(suru+"does not exist\n\nStarting Point:  ");
+    suru = input("Starting Point:  ")
+    
+ses = input("\n\nEnding Point:  ")
+if ses not in graph:
+    print(ses+"does not exist\n\nEnding Point Point:  ");
+    ses = input()
+    
+
+
+"""'Arad','Pagaras'"""
+
+v = dls(suru, ses)
+
+print("\nThe Shortest Path from "+suru+" To "+ses+":  ")
+
+j=0
+for i in v:
+    print(v[j])
+    j+=1
+
+
